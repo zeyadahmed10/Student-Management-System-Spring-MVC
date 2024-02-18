@@ -17,6 +17,11 @@
 
     <mvc:annotation-driven/>
     <context:component-scan base-package="org.zeyad.sms"/>
+    <!--- Spring Beans Configuration -->
+    <bean id="studentRepository" class ="org.zeyad.sms.repos.StudentRepository"/>
+    <bean id="studentController" class="org.zeyad.sms.controllers.StudentController">
+        <property name="studentRepository" ref="studentRepository"/>
+    </bean>
 
     <!-- DataSource Configuration -->
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">

@@ -24,7 +24,6 @@ public class Student {
     @Column(nullable = false, unique = true)
     private String email;
 
-    // Many-to-Many relationship with Course
 //    @JsonIgnore
 //    @ManyToMany(mappedBy = "students")
 //    private List<Course> courses = new ArrayList<>();
