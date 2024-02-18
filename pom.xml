@@ -8,14 +8,51 @@
   <name>SMS Maven Webapp</name>
   <url>http://maven.apache.org</url>
   <properties>
-    <spring_version>6.1.4</spring_version>
+    <spring.version>6.1.4</spring.version>
+    <spring.data.jpa.version>3.2.3</spring.data.jpa.version>
+    <hibernate.version>6.4.4.Final</hibernate.version>
+    <jpa.version>3.2.0-M1</jpa.version>
+    <lombok.version>1.18.30</lombok.version>
+    <postgres.version>42.7.1</postgres.version>
   </properties>
   <dependencies>
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-webmvc</artifactId>
-      <version>${spring_version}</version>
+      <version>${spring.version}</version>
     </dependency>
+
+    <dependency>
+      <groupId>org.postgresql</groupId>
+      <artifactId>postgresql</artifactId>
+      <version>${postgres.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>jakarta.persistence</groupId>
+      <artifactId>jakarta.persistence-api</artifactId>
+      <version>${jpa.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework.data</groupId>
+      <artifactId>spring-data-jpa</artifactId>
+      <version>${spring.data.jpa.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-core</artifactId>
+      <version>${hibernate.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <version>${lombok.version}</version>
+      <scope>provided</scope>
+    </dependency>
+
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
