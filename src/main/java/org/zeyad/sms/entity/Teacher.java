@@ -1,11 +1,8 @@
 package org.zeyad.sms.entity;
 
-
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
-
 import java.util.*;
 
 @Entity
@@ -14,7 +11,7 @@ import java.util.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Student {
+public class Teacher {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
@@ -26,7 +23,9 @@ public class Student {
     private String email;
 
     @JsonIgnore
-    @ManyToMany(mappedBy = "students")
-    private List<Course> courses = new ArrayList<>();
+    @OneToMany(mappedBy = "teacher")
+    private List<Quiz> quizzes = new ArrayList<>();
 
+    @OneToMany(mappedBy = "teacher")
+    private List<Course> courses = new ArrayList<>();
 }
