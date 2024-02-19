@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.zeyad.sms.dto.request.TeacherRequestDTO;
 import org.zeyad.sms.dto.response.TeacherResponseDTO;
+import org.zeyad.sms.mappers.TeacherResponseDTOMapper;
 import org.zeyad.sms.services.TeacherService;
 
 import java.util.List;
@@ -16,6 +17,7 @@ import java.util.List;
 @Getter
 public class TeacherController {
     private TeacherService teacherService;
+    private TeacherResponseDTOMapper teacherResponseDTOMapper;
     @GetMapping
     public List<TeacherResponseDTO> getTeachers(@RequestParam(value="name", defaultValue = "") String name,
                                                 @RequestParam(value="email", defaultValue = "") String email,
@@ -25,7 +27,7 @@ public class TeacherController {
     }
     @GetMapping("/{teacherId}")
     public TeacherResponseDTO getTeacherById(@PathVariable Long teacherId){
-        return teacherService.getByTeacherId(teacherId);
+        return teacherResponseDTOMapper.map(teacherService.getById(teacherId));
     }
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
@@ -35,7 +37,7 @@ public class TeacherController {
 
     @DeleteMapping("/{teacherId}")
     public void deleteTeacher(@PathVariable Long teacherId){
-        teacherService.deleteTeacherById(teacherId);
+        teacherService.deleteById(teacherId);
     }
     @PutMapping("/{courseId}")
     public void updateTeacher(@PathVariable Long teacherId, @RequestBody TeacherRequestDTO teacherRequestDTO){

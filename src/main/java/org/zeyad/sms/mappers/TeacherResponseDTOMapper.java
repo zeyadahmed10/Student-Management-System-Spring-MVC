@@ -6,18 +6,20 @@ import org.zeyad.sms.entity.Teacher;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TeacherResponseDTOMapper {
-    public static TeacherResponseDTO map(Teacher teacher){
+public class TeacherResponseDTOMapper implements EntityMapper<Teacher, TeacherResponseDTO> {
+    @Override
+    public TeacherResponseDTO map(Teacher teacher){
         return TeacherResponseDTO.builder()
                 .id(teacher.getId())
                 .name(teacher.getName())
                 .email(teacher.getEmail())
                 .build();
     }
-    public static List<TeacherResponseDTO> map(List<Teacher> teachers){
+    @Override
+    public List<TeacherResponseDTO> map(List<Teacher> teachers){
         List<TeacherResponseDTO> result = new ArrayList<>();
         for(Teacher teacher: teachers){
-            result.add(TeacherResponseDTOMapper.map(teacher));
+            result.add(map(teacher));
         }
         return result;
     }

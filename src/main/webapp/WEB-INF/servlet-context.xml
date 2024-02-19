@@ -18,6 +18,10 @@
     <mvc:annotation-driven/>
     <context:component-scan base-package="org.zeyad.sms"/>
     <!--- Spring Beans Configuration -->
+    <!--    Mappers Configs-->
+    <bean id="courseResponseDTOMapper" class="org.zeyad.sms.mappers.CourseResponseDTOMapper"/>
+    <bean id="studentResponseDTOMapper" class="org.zeyad.sms.mappers.StudentResponseDTOMapper"/>
+    <bean id="teacherResponseDTOMapper" class="org.zeyad.sms.mappers.TeacherResponseDTOMapper"/>
     <!--    Repositories Configs-->
     <bean id="studentRepository" class ="org.zeyad.sms.repos.StudentRepository"/>
     <bean id="courseRepository" class ="org.zeyad.sms.repos.CourseRepository"/>
@@ -28,20 +32,29 @@
     <bean id="courseService" class ="org.zeyad.sms.services.CourseService">
         <property name="courseRepository" ref="courseRepository"/>
         <property name="studentRepository" ref="studentRepository"/>
+        <property name="courseResponseDTOMapper" ref="courseResponseDTOMapper"/>
+        <property name="studentResponseDTOMapper" ref="studentResponseDTOMapper"/>
     </bean>
     <bean id="teacherService" class ="org.zeyad.sms.services.TeacherService">
         <property name="teacherRepository" ref="teacherRepository"/>
+        <property name="teacherResponseDTOMapper" ref="teacherResponseDTOMapper"/>
     </bean>
-    
+    <bean id="studentService" class ="org.zeyad.sms.services.StudentService">
+        <property name="studentRepository" ref="studentRepository"/>
+        <property name="studentResponseDTOMapper" ref="studentResponseDTOMapper"/>
+    </bean>
     <!--    Controllers Configs-->
     <bean id="courseController" class ="org.zeyad.sms.controllers.CourseController">
         <property name = "courseService" ref="courseService"/>
+        <property name="courseResponseDTOMapper" ref="courseResponseDTOMapper"/>
     </bean>
     <bean id="teacherController" class="org.zeyad.sms.controllers.TeacherController">
         <property name="teacherService" ref="teacherService"/>
+        <property name="teacherResponseDTOMapper" ref="teacherResponseDTOMapper"/>
     </bean>
     <bean id="studentController" class="org.zeyad.sms.controllers.StudentController">
         <property name="studentRepository" ref="studentRepository"/>
+        <property name="studentResponseDTOMapper" ref="studentResponseDTOMapper"/>
     </bean>
 
     <!-- DataSource Configuration -->

@@ -6,8 +6,9 @@ import org.zeyad.sms.entity.Course;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CourseResponseDTOMapper {
-    public static CourseResponseDTO map(Course course){
+public class CourseResponseDTOMapper implements EntityMapper<Course, CourseResponseDTO> {
+    @Override
+    public CourseResponseDTO map(Course course){
         String teacherEmail = (course.getTeacher()==null)? "" : course.getTeacher().getEmail();
         String teacherName = (course.getTeacher()==null)? "" : course.getTeacher().getName();
         return CourseResponseDTO.builder()
@@ -17,10 +18,11 @@ public class CourseResponseDTOMapper {
                 .teacherEmail(teacherEmail)
                 .build();
     }
-    public static List<CourseResponseDTO> map(List<Course> courses){
+    @Override
+    public List<CourseResponseDTO> map(List<Course> courses){
         List<CourseResponseDTO> result = new ArrayList<>();
         for(Course course: courses){
-            result.add(CourseResponseDTOMapper.map(course));
+            result.add(map(course));
         }
         return result;
     }

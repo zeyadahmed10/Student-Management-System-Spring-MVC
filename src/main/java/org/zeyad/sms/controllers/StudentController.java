@@ -8,6 +8,7 @@ import org.zeyad.sms.dto.request.StudentRequestDTO;
 import org.zeyad.sms.dto.request.TeacherRequestDTO;
 import org.zeyad.sms.dto.response.StudentResponseDTO;
 import org.zeyad.sms.dto.response.TeacherResponseDTO;
+import org.zeyad.sms.mappers.StudentResponseDTOMapper;
 import org.zeyad.sms.services.StudentService;
 
 import java.util.List;
@@ -18,6 +19,7 @@ import java.util.List;
 @Getter
 public class StudentController {
     private StudentService studentService;
+    private StudentResponseDTOMapper studentResponseDTOMapper;
     @GetMapping
     public List<StudentResponseDTO> getStudents(@RequestParam(value="name", defaultValue = "") String name,
                                                 @RequestParam(value="email", defaultValue = "") String email,
@@ -27,7 +29,7 @@ public class StudentController {
     }
     @GetMapping("/{studentId}")
     public StudentResponseDTO getStudentById(@PathVariable Long studentId){
-        return studentService.getStudentById(studentId);
+        return studentResponseDTOMapper.map(studentService.getById(studentId));
     }
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
@@ -37,7 +39,7 @@ public class StudentController {
 
     @DeleteMapping("/{studentId}")
     public void deleteStudent(@PathVariable Long studentId){
-        studentService.deleteStudentById(studentId);
+        studentService.deleteById(studentId);
     }
     @PutMapping("/{courseId}")
     public void updateStudent(@PathVariable Long studentId, @RequestBody StudentRequestDTO studentRequestDTO){
