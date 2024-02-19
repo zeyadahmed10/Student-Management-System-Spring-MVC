@@ -3,6 +3,8 @@ package org.zeyad.sms.controllers;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.zeyad.sms.dto.request.QuizRequestDTO;
 import org.zeyad.sms.dto.request.StudentRequestDTO;
@@ -14,7 +16,7 @@ import org.zeyad.sms.services.StudentService;
 
 import java.util.List;
 
-@RestController
+@Controller
 @RequestMapping("/api/v1/quizzes")
 @Setter
 @Getter
@@ -22,22 +24,30 @@ public class QuizController {
     private QuizService quizService;
     private QuizResponseDTOMapper quizResponseDTOMapper;
     @GetMapping
-    public List<QuizResponseDTO> getQuizzes(){
-        return quizService.getAll();
+    public String getQuizzes(Model model){
+        List<QuizResponseDTO> quizzes = quizService.getAll();
+        model.addAttribute("quizzes", quizzes);
+        return "index";
     }
     @GetMapping("/{quizId}")
-    public QuizResponseDTO getQuizById(@PathVariable Long quizId){
-        return quizResponseDTOMapper.map(quizService.getById(quizId));
+    public String getQuizById(@PathVariable Long quizId, Model model){
+        QuizResponseDTO quiz = quizResponseDTOMapper.map(quizService.getById(quizId));
+        model.addAttribute("quiz", quiz);
+        return "index";
     }
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public QuizResponseDTO addQuiz(@RequestBody QuizRequestDTO quizRequestDTO){
-        return quizService.addQuiz(quizRequestDTO);
+    public String addQuiz(@RequestBody QuizRequestDTO quizRequestDTO, Model model){
+        QuizResponseDTO quiz = quizService.addQuiz(quizRequestDTO);
+        model.addAttribute("quiz", quiz);
+        return "index";
     }
 
     @DeleteMapping("/{quizId}")
-    public void deleteQuiz(@PathVariable Long quizId){
+    public String deleteQuiz(@PathVariable Long quizId, Model model){
         quizService.deleteById(quizId);
+        model.addAttribute("message", "Quiz deleted successfully");
+        return "index";
     }
 
 }
