@@ -1,5 +1,7 @@
 package org.zeyad.sms.services;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.zeyad.sms.dto.request.TeacherRequestDTO;
@@ -10,7 +12,7 @@ import org.zeyad.sms.mappers.TeacherResponseDTOMapper;
 import org.zeyad.sms.repos.TeacherRepository;
 
 import java.util.List;
-
+@Setter
 public class TeacherService {
     private TeacherRepository teacherRepository;
     public List<TeacherResponseDTO> getTeachers(String name, String email, int page, int size) {

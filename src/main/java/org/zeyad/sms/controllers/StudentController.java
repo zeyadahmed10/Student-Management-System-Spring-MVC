@@ -2,23 +2,45 @@ package org.zeyad.sms.controllers;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
-import org.zeyad.sms.entity.Student;
-import org.zeyad.sms.repos.StudentRepository;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
+import org.zeyad.sms.dto.request.StudentRequestDTO;
+import org.zeyad.sms.dto.request.TeacherRequestDTO;
+import org.zeyad.sms.dto.response.StudentResponseDTO;
+import org.zeyad.sms.dto.response.TeacherResponseDTO;
+import org.zeyad.sms.services.StudentService;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/students")
 @Setter
 @Getter
 public class StudentController {
-
-    private StudentRepository studentRepository;
+    private StudentService studentService;
     @GetMapping
-    @ResponseBody
-    public Student getStudents(){
-        return Student.builder().email("email3").name("name3").build();
+    public List<StudentResponseDTO> getStudents(@RequestParam(value="name", defaultValue = "") String name,
+                                                @RequestParam(value="email", defaultValue = "") String email,
+                                                @RequestParam(value="page", defaultValue = "0") int page,
+                                                @RequestParam(value="size", defaultValue = "10")int size){
+        return studentService.getStudents(name, email, page, size);
+    }
+    @GetMapping("/{studentId}")
+    public StudentResponseDTO getStudentById(@PathVariable Long studentId){
+        return studentService.getStudentById(studentId);
+    }
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public StudentResponseDTO addStudent(@RequestBody StudentRequestDTO studentRequestDTO){
+        return studentService.addStudent(studentRequestDTO);
+    }
+
+    @DeleteMapping("/{studentId}")
+    public void deleteStudent(@PathVariable Long studentId){
+        studentService.deleteStudentById(studentId);
+    }
+    @PutMapping("/{courseId}")
+    public void updateStudent(@PathVariable Long studentId, @RequestBody StudentRequestDTO studentRequestDTO){
+        studentService.updateStudentById(studentId, studentRequestDTO);
     }
 }

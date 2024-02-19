@@ -18,7 +18,6 @@ import org.zeyad.sms.repos.CourseRepository;
 import org.zeyad.sms.repos.StudentRepository;
 
 import java.util.List;
-@Getter
 @Setter
 public class CourseService {
 

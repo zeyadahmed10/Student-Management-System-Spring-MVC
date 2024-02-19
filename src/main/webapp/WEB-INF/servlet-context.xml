@@ -29,10 +29,16 @@
         <property name="courseRepository" ref="courseRepository"/>
         <property name="studentRepository" ref="studentRepository"/>
     </bean>
+    <bean id="teacherService" class ="org.zeyad.sms.services.TeacherService">
+        <property name="teacherRepository" ref="teacherRepository"/>
+    </bean>
     
     <!--    Controllers Configs-->
     <bean id="courseController" class ="org.zeyad.sms.controllers.CourseController">
         <property name = "courseService" ref="courseService"/>
+    </bean>
+    <bean id="teacherController" class="org.zeyad.sms.controllers.TeacherController">
+        <property name="teacherService" ref="teacherService"/>
     </bean>
     <bean id="studentController" class="org.zeyad.sms.controllers.StudentController">
         <property name="studentRepository" ref="studentRepository"/>
