@@ -18,7 +18,22 @@
     <mvc:annotation-driven/>
     <context:component-scan base-package="org.zeyad.sms"/>
     <!--- Spring Beans Configuration -->
+    <!--    Repositories Configs-->
     <bean id="studentRepository" class ="org.zeyad.sms.repos.StudentRepository"/>
+    <bean id="courseRepository" class ="org.zeyad.sms.repos.CourseRepository"/>
+    <bean id="teacherRepository" class ="org.zeyad.sms.repos.TeacherRepository"/>
+    <bean id="quizRepository" class ="org.zeyad.sms.repos.QuizRepository"/>
+
+    <!--    Services Configs-->
+    <bean id="courseService" class ="org.zeyad.sms.services.CourseService">
+        <property name="courseRepository" ref="courseRepository"/>
+        <property name="studentRepository" ref="studentRepository"/>
+    </bean>
+    
+    <!--    Controllers Configs-->
+    <bean id="courseController" class ="org.zeyad.sms.controllers.CourseController">
+        <property name = "courseService" ref="courseService"/>
+    </bean>
     <bean id="studentController" class="org.zeyad.sms.controllers.StudentController">
         <property name="studentRepository" ref="studentRepository"/>
     </bean>
