@@ -18,6 +18,8 @@
     <mvc:annotation-driven/>
     <context:component-scan base-package="org.zeyad.sms"/>
     <!--- Spring Beans Configuration -->
+<!--    &lt;!&ndash; Enable AspectJ support &ndash;&gt;-->
+<!--    <bean class="org.springframework.aop.aspectj.annotation.AnnotationAwareAspectJAutoProxyCreator"/>-->
     <!--    Mappers Configs-->
     <bean id="courseResponseDTOMapper" class="org.zeyad.sms.mappers.CourseResponseDTOMapper"/>
     <bean id="studentResponseDTOMapper" class="org.zeyad.sms.mappers.StudentResponseDTOMapper"/>
@@ -35,6 +37,7 @@
         <property name="studentRepository" ref="studentRepository"/>
         <property name="courseResponseDTOMapper" ref="courseResponseDTOMapper"/>
         <property name="studentResponseDTOMapper" ref="studentResponseDTOMapper"/>
+        <property name="teacherRepository" ref="teacherRepository"/>
     </bean>
     <bean id="teacherService" class ="org.zeyad.sms.services.TeacherService">
         <property name="teacherRepository" ref="teacherRepository"/>

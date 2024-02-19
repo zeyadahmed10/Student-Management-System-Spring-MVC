@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.zeyad.sms.dto.request.CourseRequestDTO;
 import org.zeyad.sms.dto.request.StudentRequestDTO;
+import org.zeyad.sms.dto.request.TeacherRequestDTO;
 import org.zeyad.sms.dto.response.CourseResponseDTO;
 import org.zeyad.sms.dto.response.StudentResponseDTO;
 import org.zeyad.sms.mappers.CourseResponseDTOMapper;
@@ -65,6 +66,16 @@ public class CourseController {
     public void removeStudent(@PathVariable Long courseId, @PathVariable Long studentId){
         courseService.removeStudentFromCourse(courseId, studentId);
     }
+    //add teacher to for specific course
+    @PostMapping("/{courseId}/teachers")
+    public void addTeacher(@PathVariable Long courseId, TeacherRequestDTO teacherRequestDTO){
+        courseService.addTeacher(courseId, teacherRequestDTO);
 
+    }
+    //Remove Student from specific course
+    @DeleteMapping("/{courseId}/teachers/{teacherId}")
+    public void removeTeacher(@PathVariable Long courseId, @PathVariable Long teacherId){
+        courseService.removeTeacherFromCourse(courseId, teacherId);
+    }
 
 }

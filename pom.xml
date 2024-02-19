@@ -16,6 +16,7 @@
     <postgres.version>42.7.1</postgres.version>
     <springdoc.version>2.3.0</springdoc.version>
     <jackson.version>2.16.1</jackson.version>
+    <aspectj.version>1.9.21.1</aspectj.version>
   </properties>
   <dependencies>
     <dependency>
@@ -67,6 +68,13 @@
       <version>3.8.1</version>
       <scope>test</scope>
     </dependency>
+    <dependency>
+      <groupId>org.aspectj</groupId>
+      <artifactId>aspectjweaver</artifactId>
+      <version>${aspectj.version}</version>
+      <scope>runtime</scope>
+    </dependency>
+
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-test</artifactId>

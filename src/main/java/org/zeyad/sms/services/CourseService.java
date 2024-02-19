@@ -8,16 +8,19 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.zeyad.sms.dto.request.CourseRequestDTO;
 import org.zeyad.sms.dto.request.StudentRequestDTO;
+import org.zeyad.sms.dto.request.TeacherRequestDTO;
 import org.zeyad.sms.dto.response.CourseResponseDTO;
 import org.zeyad.sms.dto.response.StudentResponseDTO;
 import org.zeyad.sms.entity.Course;
 import org.zeyad.sms.entity.Student;
+import org.zeyad.sms.entity.Teacher;
 import org.zeyad.sms.exceptions.ResourceNotFoundException;
 import org.zeyad.sms.mappers.CourseResponseDTOMapper;
 import org.zeyad.sms.mappers.EntityMapper;
 import org.zeyad.sms.mappers.StudentResponseDTOMapper;
 import org.zeyad.sms.repos.CourseRepository;
 import org.zeyad.sms.repos.StudentRepository;
+import org.zeyad.sms.repos.TeacherRepository;
 
 import java.util.List;
 @Setter
@@ -27,6 +30,7 @@ public class CourseService extends CrudService<Course, Long, CourseResponseDTO>{
     private StudentRepository studentRepository;
     private CourseResponseDTOMapper courseResponseDTOMapper;
     private StudentResponseDTOMapper studentResponseDTOMapper;
+    private TeacherRepository teacherRepository;
     @Override
     protected JpaRepository<Course, Long> getRepository() {
         return this.courseRepository;
@@ -78,4 +82,22 @@ public class CourseService extends CrudService<Course, Long, CourseResponseDTO>{
     }
 
 
+    public void addTeacher(Long courseId, TeacherRequestDTO teacherRequestDTO) {
+        Course course = getById(courseId);
+        Teacher teacher = teacherRepository.findByEmail(teacherRequestDTO.getEmail())
+                .orElseThrow(()-> new ResourceNotFoundException("No teacher found with email " + teacherRequestDTO.getEmail()));
+        course.setTeacher(teacher);
+        add(course);
+    }
+
+    public void removeTeacherFromCourse(Long courseId, Long teacherId) {
+        Course course = getById(courseId);
+        Teacher teacher = teacherRepository.findById(teacherId)
+                .orElseThrow(()-> new ResourceNotFoundException("No teacher found with id " + teacherId));
+        if(course.getTeacher().getId()!=teacherId)
+            return;
+        course.setTeacher(null);
+        add(course);
+
+    }
 }
