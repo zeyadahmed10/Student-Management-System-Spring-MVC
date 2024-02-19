@@ -11,8 +11,8 @@ public abstract class CrudService<T, ID, D> {
     protected abstract JpaRepository<T, ID> getRepository();
     protected abstract EntityMapper<T, D> getMapper();
 
-    public List<T> getAll() {
-        return getRepository().findAll();
+    public List<D> getAll() {
+        return getMapper().map(getRepository().findAll());
     }
 
     public T getById(ID id) {
