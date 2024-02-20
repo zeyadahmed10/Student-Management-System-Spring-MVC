@@ -98,7 +98,7 @@ public class CourseService extends CrudService<Course, Long, CourseResponseDTO>{
         course.setTeacher(teacher);
         add(course);
     }
-
+    @Transactional
     public void removeTeacherFromCourse(Long courseId, Long teacherId) {
         Course course = getById(courseId);
         Teacher teacher = teacherRepository.findById(teacherId)
