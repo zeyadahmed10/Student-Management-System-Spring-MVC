@@ -24,6 +24,7 @@ import org.zeyad.sms.repos.TeacherRepository;
 
 import java.util.List;
 @Setter
+@Getter
 public class CourseService extends CrudService<Course, Long, CourseResponseDTO>{
 
     private CourseRepository courseRepository;
@@ -70,7 +71,7 @@ public class CourseService extends CrudService<Course, Long, CourseResponseDTO>{
 
     public void enrollStudent(Long courseId, StudentRequestDTO studentDTO) {
         Course course = getById(courseId);
-        Student student = studentRepository.fidByEmail(studentDTO.getEmail()).orElseThrow(()->
+        Student student = studentRepository.findByEmail(studentDTO.getEmail()).orElseThrow(()->
                 new ResourceNotFoundException("No Student found with email " + studentDTO.getEmail()));
         course.getStudents().add(student);
         add(course);

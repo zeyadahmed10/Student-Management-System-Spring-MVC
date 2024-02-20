@@ -1,12 +1,15 @@
 package org.zeyad.sms.services;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.zeyad.sms.exceptions.ResourceNotFoundException;
 import org.zeyad.sms.mappers.EntityMapper;
 
 import java.util.List;
 import java.util.Optional;
-
+@Setter
+@Getter
 public abstract class CrudService<T, ID, D> {
     protected abstract JpaRepository<T, ID> getRepository();
     protected abstract EntityMapper<T, D> getMapper();

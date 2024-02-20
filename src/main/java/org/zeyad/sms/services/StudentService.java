@@ -1,5 +1,6 @@
 package org.zeyad.sms.services;
 
+import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -17,6 +18,7 @@ import org.zeyad.sms.repos.StudentRepository;
 import java.util.List;
 
 @Setter
+@Getter
 public class StudentService extends CrudService<Student, Long, StudentResponseDTO>{
 
     private StudentRepository studentRepository;

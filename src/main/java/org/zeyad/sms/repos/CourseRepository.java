@@ -13,8 +13,4 @@ import java.util.List;
 
 public interface CourseRepository extends JpaRepository<Course, Long> {
     List<Course> findByCodeContainingAndTitleContaining(String code, String title, Pageable pageable);
-    @Modifying
-    @Transactional
-    @Query("DELETE FROM Course c JOIN c.students s WHERE c.id = :courseId AND s.id = :studentId")
-    void deleteStudentFromCourse(@Param("courseId") Long courseId, @Param("studentId") Long studentId);
 }
