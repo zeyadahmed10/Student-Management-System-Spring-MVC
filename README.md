@@ -2,7 +2,11 @@
 
 ## Overview:
 This Student Management System (SMS) is a web-based application designed to streamline various administrative tasks related to managing students, courses, quizzes, and teachers. Developed using Spring 6 MVC, Spring Data JPA, and Hibernate, the system provides a robust platform for educational institutions to efficiently manage their resources and data.
+## Note
+This repository contains the source code for the project. It consists of two branches:
 
+- `REST`: This branch contains the backend code as RESTful API.
+- `MVC`: This branch contains the the backennd code utilizing JSP MVC for the frontend.
 ## Table of contents
 - [Database Model](#database-model)
 - [Technologies Used](#technologies-used)
