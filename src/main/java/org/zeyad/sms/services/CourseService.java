@@ -85,6 +85,8 @@ public class CourseService extends CrudService<Course, Long, CourseResponseDTO>{
         Student student = studentRepository.findById(studentId).
                 orElseThrow(()-> new ResourceNotFoundException("No student found with id " + studentId));
         course.getStudents().remove(student);
+        student.getCourses().remove(course);
+        studentRepository.save(student);
         add(course);
     }
 
@@ -96,7 +98,7 @@ public class CourseService extends CrudService<Course, Long, CourseResponseDTO>{
         course.setTeacher(teacher);
         add(course);
     }
-
+    @Transactional
     public void removeTeacherFromCourse(Long courseId, Long teacherId) {
         Course course = getById(courseId);
         Teacher teacher = teacherRepository.findById(teacherId)
@@ -104,6 +106,8 @@ public class CourseService extends CrudService<Course, Long, CourseResponseDTO>{
         if(course.getTeacher().getId()!=teacherId)
             return;
         course.setTeacher(null);
+        teacher.getCourses().remove(course);
+        teacherRepository.save(teacher);
         add(course);
 
     }
