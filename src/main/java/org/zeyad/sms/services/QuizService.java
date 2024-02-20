@@ -1,5 +1,7 @@
 package org.zeyad.sms.services;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.zeyad.sms.dto.request.QuizRequestDTO;
 import org.zeyad.sms.dto.request.StudentRequestDTO;
@@ -10,7 +12,8 @@ import org.zeyad.sms.entity.Student;
 import org.zeyad.sms.mappers.EntityMapper;
 import org.zeyad.sms.mappers.QuizResponseDTOMapper;
 import org.zeyad.sms.repos.QuizRepository;
-
+@Setter
+@Getter
 public class QuizService extends CrudService<Quiz, Long, QuizResponseDTO>{
     private QuizRepository quizRepository;
     private QuizResponseDTOMapper quizResponseDTOMapper;

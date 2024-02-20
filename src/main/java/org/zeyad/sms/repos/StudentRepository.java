@@ -10,6 +10,6 @@ import java.util.List;
 import java.util.Optional;
 
 public interface StudentRepository extends JpaRepository<Student, Long> {
-    Optional<Student> fidByEmail(String email);
+    Optional<Student> findByEmail(String email);
     List<Student> findByNameContainingAndEmailContaining(String name, String email, Pageable pageable);
 }

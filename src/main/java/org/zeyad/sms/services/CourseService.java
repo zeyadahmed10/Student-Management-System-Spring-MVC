@@ -1,6 +1,7 @@
 package org.zeyad.sms.services;
 
 
+import jakarta.transaction.Transactional;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.domain.PageRequest;
@@ -23,6 +24,7 @@ import org.zeyad.sms.repos.StudentRepository;
 import org.zeyad.sms.repos.TeacherRepository;
 
 import java.util.List;
+@Getter
 @Setter
 public class CourseService extends CrudService<Course, Long, CourseResponseDTO>{
 
@@ -70,15 +72,19 @@ public class CourseService extends CrudService<Course, Long, CourseResponseDTO>{
 
     public void enrollStudent(Long courseId, StudentRequestDTO studentDTO) {
         Course course = getById(courseId);
-        Student student = studentRepository.fidByEmail(studentDTO.getEmail()).orElseThrow(()->
+        Student student = studentRepository.findByEmail(studentDTO.getEmail()).orElseThrow(()->
                 new ResourceNotFoundException("No Student found with email " + studentDTO.getEmail()));
         course.getStudents().add(student);
         add(course);
 
     }
-
+    @Transactional
     public void removeStudentFromCourse(Long courseId, Long studentId) {
-        courseRepository.deleteStudentFromCourse(courseId, studentId);
+        Course course = getById(courseId);
+        Student student = studentRepository.findById(studentId).
+                orElseThrow(()-> new ResourceNotFoundException("No student found with id " + studentId));
+        course.getStudents().remove(student);
+        add(course);
     }
 
 

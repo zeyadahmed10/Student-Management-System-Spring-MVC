@@ -20,55 +20,17 @@
     <!--- Spring Beans Configuration -->
 <!--    &lt;!&ndash; Enable AspectJ support &ndash;&gt;-->
 <!--    <bean class="org.springframework.aop.aspectj.annotation.AnnotationAwareAspectJAutoProxyCreator"/>-->
-    <!--    Mappers Configs-->
-    <bean id="courseResponseDTOMapper" class="org.zeyad.sms.mappers.CourseResponseDTOMapper"/>
-    <bean id="studentResponseDTOMapper" class="org.zeyad.sms.mappers.StudentResponseDTOMapper"/>
-    <bean id="teacherResponseDTOMapper" class="org.zeyad.sms.mappers.TeacherResponseDTOMapper"/>
-    <bean id="quizResponseDTOMapper" class="org.zeyad.sms.mappers.QuizResponseDTOMapper"/>
-    <!--    Repositories Configs-->
-    <bean id="studentRepository" class ="org.zeyad.sms.repos.StudentRepository"/>
-    <bean id="courseRepository" class ="org.zeyad.sms.repos.CourseRepository"/>
-    <bean id="teacherRepository" class ="org.zeyad.sms.repos.TeacherRepository"/>
-    <bean id="quizRepository" class ="org.zeyad.sms.repos.QuizRepository"/>
-
-    <!--    Services Configs-->
-    <bean id="courseService" class ="org.zeyad.sms.services.CourseService">
-        <property name="courseRepository" ref="courseRepository"/>
-        <property name="studentRepository" ref="studentRepository"/>
-        <property name="courseResponseDTOMapper" ref="courseResponseDTOMapper"/>
-        <property name="studentResponseDTOMapper" ref="studentResponseDTOMapper"/>
-        <property name="teacherRepository" ref="teacherRepository"/>
-    </bean>
-    <bean id="teacherService" class ="org.zeyad.sms.services.TeacherService">
-        <property name="teacherRepository" ref="teacherRepository"/>
-        <property name="teacherResponseDTOMapper" ref="teacherResponseDTOMapper"/>
-    </bean>
-    <bean id="studentService" class ="org.zeyad.sms.services.StudentService">
-        <property name="studentRepository" ref="studentRepository"/>
-        <property name="studentResponseDTOMapper" ref="studentResponseDTOMapper"/>
-    </bean>
-    <bean id="quizService" class ="org.zeyad.sms.services.QuizService">
-        <property name="quizRepository" ref="quizRepository"/>
-        <property name="quizResponseDTOMapper" ref="quizResponseDTOMapper"/>
-    </bean>
-    <!--    Controllers Configs-->
-    <bean id="courseController" class ="org.zeyad.sms.controllers.CourseController">
-        <property name = "courseService" ref="courseService"/>
-        <property name="courseResponseDTOMapper" ref="courseResponseDTOMapper"/>
-    </bean>
-    <bean id="teacherController" class="org.zeyad.sms.controllers.TeacherController">
-        <property name="teacherService" ref="teacherService"/>
-        <property name="teacherResponseDTOMapper" ref="teacherResponseDTOMapper"/>
-    </bean>
-    <bean id="studentController" class="org.zeyad.sms.controllers.StudentController">
-        <property name="studentRepository" ref="studentRepository"/>
-        <property name="studentResponseDTOMapper" ref="studentResponseDTOMapper"/>
-    </bean>
-    <bean id="quizController" class="org.zeyad.sms.controllers.QuizController">
-        <property name="quizRepository" ref="quizRepository"/>
-        <property name="quizResponseDTOMapper" ref="quizResponseDTOMapper"/>
-    </bean>
-
+<!--    <bean id="publicApi" class="org.springdoc.core.GroupedOpenApi" factory-method="builder">-->
+<!--        <property name="group" value="springshop-public"/>-->
+<!--        <property name="pathsToMatch">-->
+<!--            <list>-->
+<!--                <value>**</value>-->
+<!--            </list>-->
+<!--        </property>-->
+<!--        <property name="build">-->
+<!--            <bean class="org.springdoc.core.GroupedOpenApi" factory-method="build"/>-->
+<!--        </property>-->
+<!--    </bean>-->
     <!-- DataSource Configuration -->
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="org.postgresql.Driver"/>
@@ -106,5 +68,66 @@
     <!-- Scan for components -->
     <context:component-scan base-package="org.zeyad.sms" />
     <jpa:repositories base-package="org.zeyad.sms.repos" />
+
+
+    <!--    Mappers Configs-->
+    <bean id="courseResponseDTOMapper" class="org.zeyad.sms.mappers.CourseResponseDTOMapper">
+    </bean>
+    <bean id="quizResponseDTOMapper" class="org.zeyad.sms.mappers.QuizResponseDTOMapper">
+    </bean>
+    <bean id="teacherResponseDTOMapper" class="org.zeyad.sms.mappers.TeacherResponseDTOMapper">
+    </bean>
+    <bean id="studentResponseDTOMapper" class="org.zeyad.sms.mappers.StudentResponseDTOMapper">
+    </bean>
+    <!--    Repositories Configs-->
+<!--    <bean id="teacherRepository" class="org.zeyad.sms.repos.TeacherRepository">-->
+<!--    </bean>-->
+<!--    <bean id="studentRepository" class="org.zeyad.sms.repos.StudentRepository">-->
+<!--    </bean>-->
+<!--    <bean id="courseRepository" class="org.zeyad.sms.repos.CourseRepository">-->
+<!--    </bean>-->
+<!--    <bean id="quizRepository" class="org.zeyad.sms.repos.QuizRepository">-->
+<!--    </bean>-->
+
+
+    <!--    Services Configs-->
+    <bean id="courseService" class ="org.zeyad.sms.services.CourseService">
+        <property name="courseRepository" ref="courseRepository"/>
+        <property name="studentRepository" ref="studentRepository"/>
+        <property name="courseResponseDTOMapper" ref="courseResponseDTOMapper"/>
+        <property name="studentResponseDTOMapper" ref="studentResponseDTOMapper"/>
+        <property name="teacherRepository" ref="teacherRepository"/>
+    </bean>
+    <bean id="teacherService" class ="org.zeyad.sms.services.TeacherService">
+        <property name="teacherRepository" ref="teacherRepository"/>
+        <property name="teacherResponseDTOMapper" ref="teacherResponseDTOMapper"/>
+    </bean>
+    <bean id="studentService" class ="org.zeyad.sms.services.StudentService">
+        <property name="studentRepository" ref="studentRepository"/>
+        <property name="studentResponseDTOMapper" ref="studentResponseDTOMapper"/>
+    </bean>
+    <bean id="quizService" class="org.zeyad.sms.services.QuizService">
+        <property name="quizRepository" ref="quizRepository"/>
+        <property name="quizResponseDTOMapper" ref="quizResponseDTOMapper"/>
+    </bean>
+
+    <!--    Controllers Configs-->
+    <bean id="courseController" class ="org.zeyad.sms.controllers.CourseController">
+        <property name = "courseService" ref="courseService"/>
+        <property name="courseResponseDTOMapper" ref="courseResponseDTOMapper"/>
+    </bean>
+    <bean id="teacherController" class="org.zeyad.sms.controllers.TeacherController">
+        <property name="teacherService" ref="teacherService"/>
+        <property name="teacherResponseDTOMapper" ref="teacherResponseDTOMapper"/>
+    </bean>
+    <bean id="studentController" class="org.zeyad.sms.controllers.StudentController">
+        <property name="studentService" ref="studentService"/>
+        <property name="studentResponseDTOMapper" ref="studentResponseDTOMapper"/>
+    </bean>
+    <bean id="quizController" class="org.zeyad.sms.controllers.QuizController">
+        <property name="quizService" ref="quizService"/>
+        <property name="quizResponseDTOMapper" ref="quizResponseDTOMapper"/>
+    </bean>
+
 
 </beans>

@@ -15,6 +15,7 @@ import org.zeyad.sms.repos.TeacherRepository;
 
 import java.util.List;
 @Setter
+@Getter
 public class TeacherService extends CrudService<Teacher, Long, TeacherResponseDTO> {
     private TeacherRepository teacherRepository;
     private TeacherResponseDTOMapper teacherResponseDTOMapper;
